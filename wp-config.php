@@ -18,24 +18,34 @@
  * @package WordPress
  */
 
-// ** Database settings - You can get this info from your web host ** //
+/**
+ * Heroku ClearDB (MySQL) config
+ */
+
+if ( getenv('CLEARDB_DATABASE_URL') ) {
+	$db_url = parse_url(getenv('CLEARDB_DATABASE_URL'));
+} else {
+	$db_url = parse_url(getenv('DATABASE_URL'));
+}
+
+// ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'wp_data' );
+define('DB_NAME', trim($db_url['path'], '/'));
 
-/** Database username */
-define( 'DB_USER', 'root' );
+/** MySQL database username */
+define('DB_USER', $db_url['user']);
 
-/** Database password */
-define( 'DB_PASSWORD', 'password' );
+/** MySQL database password */
+define('DB_PASSWORD', $db_url['pass']);
 
-/** Database hostname */
-define( 'DB_HOST', 'localhost' );
+/** MySQL hostname */
+define('DB_HOST', $db_url['host']);
 
-/** Database charset to use in creating database tables. */
-define( 'DB_CHARSET', 'utf8mb4' );
+/** Database Charset to use in creating database tables. */
+define('DB_CHARSET', 'utf8mb4');
 
-/** The database collate type. Don't change this if in doubt. */
-define( 'DB_COLLATE', '' );
+/** The Database Collate type. Don't change this if in doubt. */
+define('DB_COLLATE', 'utf8mb4_general_ci');
 
 /**#@+
  * Authentication unique keys and salts.
