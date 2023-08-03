@@ -8613,7 +8613,7 @@ function enqueue_superflow() {
 		add_action('wp_footer', 'add_superflow_api_key_script');
 		function add_superflow_api_key_script() {
 				$apiKey = '4qqac8KqCf1AdNT1qnJl';
-				$projectId = '3313642941694430';
+				$projectId = '7331914695848339';
 				echo '<script>window.SUPERFLOW_TOOLBAR_API_KEY = "' . esc_js($apiKey) . '"; window.SUPERFLOW_TOOLBAR_PROJECT_ID = "' . esc_js($projectId) . '";</script>';
 		}
 
@@ -8632,5 +8632,4 @@ function enqueue_superflow() {
 		// Enqueue the registered script
 		wp_enqueue_script('superflow');
 }
-
 add_action('wp_enqueue_scripts', 'enqueue_superflow');
