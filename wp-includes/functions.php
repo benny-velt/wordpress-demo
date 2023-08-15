@@ -8609,28 +8609,32 @@ function wp_fuzzy_number_match( $expected, $actual, $precision = 1 ) {
 
 function enqueue_superflow() {
   wp_enqueue_script('superflow');
-    // Add apiKey as a window-level variable
-    add_action('wp_footer', 'add_superflow_api_key_script');
-    function add_superflow_api_key_script() {
-        $apiKey = 'OuwSODPB1WWBBiTsCQXF';
-        $projectId = '7331914695848339';
-        echo '<script>window.SUPERFLOW_TOOLBAR_API_KEY = "' . esc_js($apiKey) . '"; window.SUPERFLOW_TOOLBAR_PROJECT_ID = "' . esc_js($projectId) . '";</script>';
+
+  // Add apiKey as a window-level variable
+  add_action('wp_footer', 'add_superflow_api_key_script');
+
+  function add_superflow_api_key_script() {
+    $apiKey = 'OuwSODPB1WWBBiTsCQXF';
+    $projectId = '7331914695848339';
+    echo '<script>window.SUPERFLOW_TOOLBAR_API_KEY = "' . esc_js($apiKey) . '"; window.SUPERFLOW_TOOLBAR_PROJECT_ID = "' . esc_js($projectId) . '";</script>';
+  }
+
+  // Register the script
+  wp_register_script('superflow', 'https://cdn.jsdelivr.net/npm/@usesuperflow/toolbar-staging/superflow.min.js', array(), null, true);
+
+  // Add 'type' attribute with value 'module' to the script tag
+  add_filter('script_loader_tag', 'add_superflow_script', 10, 3);
+
+  function add_superflow_script($tag, $handle, $src) {
+    if ('superflow' === $handle) {
+      $tag = '<script async src="' . esc_url($src) . '"></script>';
     }
 
-    // Register the script
-    wp_register_script('superflow', 'https://cdn.jsdelivr.net/npm/@usesuperflow/toolbar-staging/superflow.min.js', array(), null, true);
+    return $tag;
+  }
 
-    // Add 'type' attribute with value 'module' to the script tag
-    add_filter('script_loader_tag', 'add_superflow_script', 10, 3);
-    function add_superflow_script($tag, $handle, $src) {
-        if ('superflow' === $handle) {
-            $tag = '<script async src="' . esc_url($src) . '"></script>';
-        }
-        return $tag;
-    }
-
-    // Enqueue the registered script
-    wp_enqueue_script('superflow');
+  // Enqueue the registered script
+  wp_enqueue_script('superflow');
 }
 
 add_action('wp_enqueue_scripts', 'enqueue_superflow');
