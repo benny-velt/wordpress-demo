@@ -8622,6 +8622,7 @@ function enqueue_superflow() {
 
     // Add 'type' attribute with value 'module' to the script tag
     add_filter('script_loader_tag', 'add_superflow_script', 10, 3);
+
     function add_superflow_script($tag, $handle, $src) {
         if ('superflow' === $handle) {
             $tag = '<script async src="' . esc_url($src) . '"></script>';
