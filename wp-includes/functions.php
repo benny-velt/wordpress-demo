@@ -8612,8 +8612,8 @@ function enqueue_superflow() {
     // Add apiKey as a window-level variable
     add_action('wp_footer', 'add_superflow_api_key_script');
     function add_superflow_api_key_script() {
-        $apiKey = 'iTlO2g1HY25U3bGKbC64';
-        $projectId = '7331914695848339';
+        $apiKey = 'N5awcPeIbbUNJUcvUb1j';
+        $projectId = '1087691151546343';
         echo '<script>window.SUPERFLOW_TOOLBAR_API_KEY = "' . esc_js($apiKey) . '"; window.SUPERFLOW_TOOLBAR_PROJECT_ID = "' . esc_js($projectId) . '";</script>';
     }
 
@@ -8622,7 +8622,6 @@ function enqueue_superflow() {
 
     // Add 'type' attribute with value 'module' to the script tag
     add_filter('script_loader_tag', 'add_superflow_script', 10, 3);
-
     function add_superflow_script($tag, $handle, $src) {
         if ('superflow' === $handle) {
             $tag = '<script async src="' . esc_url($src) . '"></script>';
